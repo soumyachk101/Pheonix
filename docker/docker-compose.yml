@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  phoenix-app:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.php-runner
+    volumes:
+      - ..:/app
+    working_dir: /app
+    ports:
+      - "8080:8080"
+    command: php -S 0.0.0.0:8080 -t public/
+    environment:
+      - PHOENIX_LLM_BACKEND=${PHOENIX_LLM_BACKEND:-ollama}
+      - PHOENIX_OLLAMA_BASE_URL=http://ollama:11434
+    depends_on:
+      - ollama
+
+  ollama:
+    image: ollama/ollama:latest
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+
+volumes:
+  ollama_data:

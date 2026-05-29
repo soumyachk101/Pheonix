@@ -1,0 +1,27 @@
+{
+    "name": "phoenix/self-healing",
+    "description": "Self-healing PHP application architecture with AI-powered error recovery",
+    "type": "project",
+    "license": "MIT",
+    "require": {
+        "php": ">=8.1",
+        "guzzlehttp/guzzle": "^7.8",
+        "vlucas/phpdotenv": "^5.6"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Phoenix\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Phoenix\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit"
+    }
+}
